@@ -1,0 +1,112 @@
+{
+  "id": "com.claudiosignorello.aiplanningassistant",
+  "version": "0.1.0",
+  "name": "AI Planning Assistant",
+  "description": "KI-Assistent für die Planung: Ad-hoc-Abfragen, geführte Datenaktionen und Erklärungen zum Datenmodell.",
+  "newInstancePrefix": "AIPlanningAssistant",
+  "vendor": "Claudio Signorello",
+  "eula": "",
+  "license": "",
+  "icon": "",
+  "webcomponents": [
+    {
+      "kind": "main",
+      "tag": "com-claudiosignorello-ai-planning-assistant",
+      "url": "/main.js",
+      "integrity": "",
+      "ignoreIntegrity": true
+    }
+  ],
+  "properties": {
+    "backendUrl": {
+      "type": "string",
+      "description": "URL des KI-Backends (POST /chat). Leer = Demo-Modus ohne LLM.",
+      "default": ""
+    },
+    "actionCatalog": {
+      "type": "string",
+      "description": "JSON-Liste der freigegebenen Aktionen (id, label, description, parameters).",
+      "default": "[]"
+    },
+    "assistantName": {
+      "type": "string",
+      "description": "Anzeigename im Chat.",
+      "default": "Planungsassistent"
+    },
+    "width": {
+      "type": "integer",
+      "default": 420
+    },
+    "height": {
+      "type": "integer",
+      "default": 560
+    }
+  },
+  "methods": {
+    "setBackendUrl": {
+      "description": "Setzt die Backend-URL zur Laufzeit.",
+      "parameters": [
+        { "name": "url", "type": "string", "description": "Backend-URL" }
+      ]
+    },
+    "setActionCatalog": {
+      "description": "Setzt den Aktionskatalog als JSON-String.",
+      "parameters": [
+        { "name": "catalogJson", "type": "string", "description": "JSON-Liste der Aktionen" }
+      ]
+    },
+    "getPendingActionId": {
+      "description": "ID der Aktion, die der Nutzer bestätigt hat (im Event onActionRequested lesen).",
+      "returnType": "string"
+    },
+    "getPendingParam": {
+      "description": "Wert eines Parameters der bestätigten Aktion.",
+      "returnType": "string",
+      "parameters": [
+        { "name": "name", "type": "string", "description": "Parameter-ID" }
+      ]
+    },
+    "getPendingParamNames": {
+      "description": "Parameter-IDs der bestätigten Aktion, kommagetrennt.",
+      "returnType": "string"
+    },
+    "setActionResult": {
+      "description": "Meldet das Ergebnis der Ausführung an den Assistenten zurück.",
+      "parameters": [
+        { "name": "actionId", "type": "string", "description": "ID der ausgeführten Aktion" },
+        { "name": "success", "type": "boolean", "description": "Erfolgreich?" },
+        { "name": "message", "type": "string", "description": "Rückmeldung für den Nutzer" }
+      ]
+    },
+    "addContextNote": {
+      "description": "Gibt dem Assistenten zusätzlichen Kontext aus dem Story-Skript (z. B. aktive Version, Seite).",
+      "parameters": [
+        { "name": "note", "type": "string", "description": "Freitext" }
+      ]
+    }
+  },
+  "events": {
+    "onActionRequested": {
+      "description": "Der Nutzer hat eine Aktion bestätigt. Im Story-Skript mit getPendingActionId()/getPendingParam() auslesen und ausführen."
+    },
+    "onDataRefreshRequested": {
+      "description": "Der Assistent bittet die Story, Daten neu zu laden (z. B. nach einer Aktion)."
+    }
+  },
+  "dataBindings": {
+    "myDataBinding": {
+      "feeds": [
+        {
+          "id": "dimensions",
+          "description": "Dimensionen",
+          "type": "dimension"
+        },
+        {
+          "id": "measures",
+          "description": "Kennzahlen",
+          "type": "mainStructureMember"
+        }
+      ]
+    }
+  }
+}

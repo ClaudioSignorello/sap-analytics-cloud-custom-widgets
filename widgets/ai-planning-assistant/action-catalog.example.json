@@ -1,0 +1,27 @@
+[
+  {
+    "id": "DISTRIBUTE_TO_PERIOD",
+    "label": "Werte auf Periode verteilen",
+    "description": "Verteilt einen Anteil des Jahreswerts eines Profitcenters auf eine Zielperiode (Data Action DataAction_Distribute).",
+    "parameters": [
+      { "id": "Anteil", "type": "number", "required": true, "description": "Anteil zwischen 0 und 1, z. B. 0.8", "default": 0.8 },
+      { "id": "Zielperiode", "type": "member", "dimension": "Date", "required": true, "description": "Periode, z. B. 202704", "default": "202704" },
+      { "id": "ProfitCenter", "type": "member", "dimension": "ProfitCenter", "required": true, "description": "Profitcenter-ID", "default": "PC_1000" }
+    ]
+  },
+  {
+    "id": "COPY_VERSION",
+    "label": "Version kopieren",
+    "description": "Kopiert eine Version in eine andere (Multi Action MultiAction_CopyVersion).",
+    "parameters": [
+      { "id": "QuellVersion", "type": "member", "dimension": "Version", "required": true },
+      { "id": "ZielVersion", "type": "member", "dimension": "Version", "required": true }
+    ]
+  },
+  {
+    "id": "SUBMIT",
+    "label": "Eingaben übernehmen",
+    "description": "Übernimmt offene Eingaben der Planungstabelle (submitData).",
+    "parameters": []
+  }
+]
