@@ -162,6 +162,7 @@
       this._shadow = this.attachShadow({ mode: "open" });
       this._shadow.appendChild(template.content.cloneNode(true));
       this._props = { backendUrl: "", actionCatalog: "[]", assistantName: "Planungsassistent" };
+      this._sessionId = (crypto.randomUUID && crypto.randomUUID()) || String(Date.now()) + Math.random();
       this._messages = []; // Verlauf für das Backend: {role, content}
       this._contextNotes = [];
       this._pending = null; // vom Nutzer bestätigte Aktion
@@ -307,6 +308,7 @@
 
     async _callBackend(toolResult) {
       const body = {
+        sessionId: this._sessionId,
         messages: this._messages,
         context: await this._buildContext(),
         toolResult: toolResult || null,

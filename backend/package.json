@@ -1,0 +1,22 @@
+{
+  "name": "sac-ai-assistant-backend",
+  "version": "0.1.0",
+  "description": "LLM-Backend für das SAC-Widget AI Planning Assistant (Claude, Tool-Loop mit Ausführung im Browser)",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "npm run build && node --test dist/test/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "typescript": "^7.0.2"
+  }
+}

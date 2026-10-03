@@ -16,7 +16,7 @@ Chat-Widget für SAP Analytics Cloud, das Fragen zu Planungsdaten beantwortet un
 
 - **Widget:** liest nur. Abfragen laufen über das eigene Data Binding mit den Rechten des Nutzers.
 - **Story-Skript:** schreibt. Es führt nur Aktionen aus seiner Whitelist aus (Data Actions, Multi Actions, `submitData`) und meldet das Ergebnis über `setActionResult()` zurück.
-- **Backend:** hält das LLM und die API-Keys. Das Widget kennt nur die URL.
+- **Backend:** hält das LLM und die API-Keys, siehe [`../../backend`](../../backend). Das Widget kennt nur die URL.
 
 ## Ablauf einer Aktion
 
@@ -32,6 +32,7 @@ Request:
 
 ```json
 {
+  "sessionId": "…UUID pro Widget-Instanz…",
   "messages": [{ "role": "user", "content": "Wie ist der Umsatz für PC 1000?" }],
   "context": { "model": {...}, "members": {...}, "runtime": {...}, "actions": [...], "notes": [...], "locale": "de-DE" },
   "toolResult": null
@@ -74,4 +75,3 @@ Für produktive Nutzung `ignoreIntegrity` auf `false` setzen und den SHA256-Hash
 
 - Methoden- und Enum-Namen der Story-Skripte gegen die Scripting-Referenz des Tenants prüfen.
 - Die gebundene Ergebnismenge ist begrenzt; für Member außerhalb der aktuellen Sicht später Filter über die DataSource-API setzen.
-- Das Backend (LLM-Orchestrierung) ist noch nicht Teil dieses Repos.
